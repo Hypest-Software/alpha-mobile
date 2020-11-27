@@ -9,8 +9,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('uhhh'),
+      body: SafeArea(
+        child: MapView(),
       ),
       body: MapView(),
       floatingActionButton: FloatingActionButton(
