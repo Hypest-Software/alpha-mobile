@@ -22,6 +22,7 @@ class _MapViewState extends State<MapView> {
     return Container(
       child: GoogleMap(
         onMapCreated: _onMapCreated,
+        zoomControlsEnabled: false,
         initialCameraPosition: CameraPosition(
           target: _center,
           zoom: 11.0,
