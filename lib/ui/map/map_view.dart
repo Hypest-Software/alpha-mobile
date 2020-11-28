@@ -1,6 +1,8 @@
+import 'package:alpha_mobile/core/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class MapView extends StatefulWidget {
   MapView({Key key}) : super(key: key);
@@ -10,21 +12,23 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
+  final LatLng defaultPos = LatLng(51.9189, 19.1344);
+
   GoogleMapController mapController;
-  MapType _currentMapType = MapType.normal;
+  MapType _currentMapType;
+  LocationProvider _locationProvider;
+  LocationData _currentLocation;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  @override
+  void initState() {
+    super.initState();
+    _currentMapType = MapType.normal;
+    _locationProvider = new LocationProvider();
+    getCurrentLocation();
   }
 
-  void _changeMapType() {
-    setState(() {
-      _currentMapType = _currentMapType == MapType.normal
-          ? MapType.hybrid
-          : MapType.normal;
-    });
+  void getCurrentLocation() async {
+    _currentLocation = await _locationProvider.getCurrentLocation();
   }
 
   @override
@@ -35,8 +39,10 @@ class _MapViewState extends State<MapView> {
         zoomControlsEnabled: false,
         mapType: _currentMapType,
         initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 11.0,
+          target: _currentLocation == null 
+            ? defaultPos 
+            : LatLng(_currentLocation.latitude, _currentLocation.longitude),
+          zoom: 6.0,
         ),
       ),
       Container(
@@ -48,5 +54,20 @@ class _MapViewState extends State<MapView> {
         ),
       ),
     ]);
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+    // in case initialCameraPosition was set before location was fetched
+    mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(_currentLocation.latitude, _currentLocation.longitude),
+        zoom: 16.0)));
+  }
+
+  void _changeMapType() {
+    setState(() {
+      _currentMapType =
+          _currentMapType == MapType.normal ? MapType.hybrid : MapType.normal;
+    });
   }
 }
