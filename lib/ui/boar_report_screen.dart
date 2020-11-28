@@ -1,10 +1,17 @@
+import 'dart:io';
+
 import 'package:alpha_mobile/core/location_provider.dart';
 import 'package:alpha_mobile/model/boar_report.dart';
 import 'package:alpha_mobile/model/boar_type.dart';
+import 'package:alpha_mobile/ui/basic_modal_sheet.dart';
 import 'package:alpha_mobile/ui/map/map_view_mini.dart';
+import 'package:alpha_mobile/ui/modal_sheet_header.dart';
+import 'package:alpha_mobile/ui/square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class BoarReportScreen extends StatefulWidget {
   final BoarType chosenBoarType;
@@ -19,11 +26,13 @@ class _BoarReportScreenState extends State<BoarReportScreen> {
   BoarReport _report;
   LocationProvider _locationProvider;
   LatLng _currentLocation;
+  ImagePicker _picker;
 
   @override
   void initState() {
     super.initState();
     _locationProvider = LocationProvider();
+    _picker = ImagePicker();
     _report = BoarReport();
     _report.boarType = widget.chosenBoarType;
     _getLocation();
@@ -61,6 +70,7 @@ class _BoarReportScreenState extends State<BoarReportScreen> {
                     children: [
                       _locationSection(),
                       _boarTypeSection(),
+                      _pictureSection(),
                     ],
                   ),
                 ),
@@ -83,7 +93,9 @@ class _BoarReportScreenState extends State<BoarReportScreen> {
         child: Container(
             padding: EdgeInsets.all(15),
             child: horizontal
-                ? Row(children: children, mainAxisAlignment: MainAxisAlignment.spaceBetween)
+                ? Row(
+                    children: children,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween)
                 : Column(children: children)));
   }
 
@@ -137,5 +149,88 @@ class _BoarReportScreenState extends State<BoarReportScreen> {
         ),
       )
     ], horizontal: true);
+  }
+
+  Widget _pictureSection() {
+    return _sectionCard([
+      _sectionHeader(context, 'Picture'),
+      Container(height: 20),
+      Material(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey[700],
+        child: InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () => _showImagePicker(context),
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: _report.imageFile != null
+                  ? Image.file(_report.imageFile, fit: BoxFit.fitWidth)
+                  : Container(
+                      width: double.infinity,
+                      height: 100,
+                      child: Icon(
+                        Icons.camera_alt,
+                        color: Colors.grey[300],
+                      ),
+                    )),
+        ),
+      )
+    ]);
+  }
+
+  Widget _imagePickerModal() {
+    return BasicModalSheet(
+      header: ModalSheetHeader(
+        icon: Icons.image,
+        text: 'Choose the image source.',
+      ),
+      content: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          SquareButton(
+            icon: Icons.camera,
+            title: 'Camera',
+            onTap: () {
+              _picFromCamera();
+              Navigator.of(context).pop();
+            },
+          ),
+          SquareButton(
+            icon: Icons.image_search,
+            title: 'Gallery',
+            onTap: () {
+              _picFromGallery();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showImagePicker(BuildContext context) {
+    showMaterialModalBottomSheet(
+        context: context, builder: (context) => _imagePickerModal());
+  }
+
+  void _picFromCamera() async {
+    final pickedFile = await _picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _report.imageFile = File(pickedFile.path);
+      }
+    });
+  }
+
+  void _picFromGallery() async {
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _report.imageFile = File(pickedFile.path);
+      }
+    });
   }
 }
