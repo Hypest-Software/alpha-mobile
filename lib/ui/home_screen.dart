@@ -108,9 +108,10 @@ class HomeScreen extends StatelessWidget {
             Container(height: 15),
             Text('Make sure you\'re safe before proceeding.',
                 style: TextStyle(fontSize: 16)),
-            Container(height: 25),
+            Container(height: 45),
             RaisedButton(
-              child: Text('I am safe, proceed'),
+              padding: EdgeInsets.all(20),
+              child: Text('I am safe, proceed'.toUpperCase(), style: TextStyle(fontSize: 16),),
               onPressed: () => Navigator.of(context).pop(true),
             )
           ],

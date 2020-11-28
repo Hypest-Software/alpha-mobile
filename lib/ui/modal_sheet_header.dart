@@ -9,9 +9,9 @@ class ModalSheetHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Icon(icon, size: 48),
+        Icon(icon, size: 56),
         Container(height: 10),
-        Text(text, style: TextStyle(fontSize: 20)),
+        Text(text, style: TextStyle(fontSize: 22)),
         Container(height: 10),
       ],
     );

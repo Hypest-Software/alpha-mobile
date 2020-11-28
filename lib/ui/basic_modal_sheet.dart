@@ -10,7 +10,7 @@ class BasicModalSheet extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(
         top: 30,
-        bottom: 20
+        bottom: 40
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
