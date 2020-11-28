@@ -12,13 +12,20 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: MapView(),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => {},
-        tooltip: 'Report',
-        label: Text('Report'),
-        icon: Icon(Icons.report),
-        backgroundColor: Colors.red,
+      floatingActionButton: FractionallySizedBox(
+        widthFactor: 0.8,
+        heightFactor: 0.1,
+        child: FloatingActionButton.extended(
+          onPressed: () => {},
+          tooltip: 'Report',
+          label: Text('REPORT', 
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
+          ),
+          icon: Icon(Icons.report, size: 40),
+          backgroundColor: Colors.red,
+        ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
