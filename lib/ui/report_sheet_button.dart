@@ -22,7 +22,7 @@ class ReportSheetButton extends StatelessWidget {
           color: Color(0xFF191919),
           child: InkWell(
             borderRadius: BorderRadius.all(Radius.circular(10)),
-            onTap: () {},
+            onTap: onTap,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
