@@ -15,6 +15,11 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        buttonTheme: ButtonThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+          ) 
+        ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: Colors.blue,
           shape: RoundedRectangleBorder(
