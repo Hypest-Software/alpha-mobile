@@ -16,7 +16,17 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: MapView(),
+        child: ShaderMask(
+          shaderCallback: (rect) {
+            return LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.black, Colors.transparent],
+            ).createShader(Rect.fromLTRB(0, rect.height * 0.8, rect.width, rect.height));
+          },
+          blendMode: BlendMode.dstIn,
+          child: MapView()
+        ),
       ),
       floatingActionButton: FractionallySizedBox(
         widthFactor: 0.8,
