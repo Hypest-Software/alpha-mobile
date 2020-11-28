@@ -36,6 +36,7 @@ class _MapViewState extends State<MapView> {
     return Stack(children: [
       GoogleMap(
         onMapCreated: _onMapCreated,
+        myLocationEnabled: true,
         zoomControlsEnabled: false,
         mapType: _currentMapType,
         initialCameraPosition: CameraPosition(
