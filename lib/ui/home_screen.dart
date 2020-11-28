@@ -1,4 +1,5 @@
 import 'package:alpha_mobile/ui/basic_modal_sheet.dart';
+import 'package:alpha_mobile/ui/modal_sheet_header.dart';
 import 'package:alpha_mobile/ui/report_sheet_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -39,13 +40,9 @@ class HomeScreen extends StatelessWidget {
 
   Widget _reportBottomSheet(BuildContext context) {
     return BasicModalSheet(
-      header: Column(
-        children: [
-          Icon(Icons.pets, size: 48),
-          Container(height: 10),
-          Text('The boar being reported is:', style: TextStyle(fontSize: 20)),
-          Container(height: 10),
-        ],
+      header: ModalSheetHeader(
+        icon: Icons.pets,
+        text: 'The boar being reported is:',
       ),
       content: Row(
         mainAxisSize: MainAxisSize.max,
