@@ -14,7 +14,7 @@ class MapView extends StatefulWidget {
 class _MapViewState extends State<MapView> {
   final LatLng defaultPos = LatLng(51.9189, 19.1344);
 
-  GoogleMapController mapController;
+  GoogleMapController _mapController;
   MapType _currentMapType;
   LocationProvider _locationProvider;
   LocationData _currentLocation;
@@ -24,11 +24,6 @@ class _MapViewState extends State<MapView> {
     super.initState();
     _currentMapType = MapType.normal;
     _locationProvider = new LocationProvider();
-    getCurrentLocation();
-  }
-
-  void getCurrentLocation() async {
-    _currentLocation = await _locationProvider.getCurrentLocation();
   }
 
   @override
@@ -40,9 +35,9 @@ class _MapViewState extends State<MapView> {
         zoomControlsEnabled: false,
         mapType: _currentMapType,
         initialCameraPosition: CameraPosition(
-          target: _currentLocation == null 
-            ? defaultPos 
-            : LatLng(_currentLocation.latitude, _currentLocation.longitude),
+          target: _currentLocation == null
+              ? defaultPos
+              : LatLng(_currentLocation.latitude, _currentLocation.longitude),
           zoom: 6.0,
         ),
       ),
@@ -58,9 +53,20 @@ class _MapViewState extends State<MapView> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+    _mapController = controller;
+    _getCurrentLocation();
+  }
+
+  void _getCurrentLocation() async {
+    _currentLocation = await _locationProvider.getCurrentLocation();
+    setState(() {
+      _moveCameraToCurrent();
+    });
+  }
+
+  void _moveCameraToCurrent() {
     // in case initialCameraPosition was set before location was fetched
-    mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+    _mapController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng(_currentLocation.latitude, _currentLocation.longitude),
         zoom: 16.0)));
   }
