@@ -14,6 +14,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          shape: BeveledRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+          )
+        )
       ),
       home: HomeScreen(),
     );
