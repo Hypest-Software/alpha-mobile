@@ -36,48 +36,25 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _reportBottomSheet(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        top: 30,
-        bottom: 20
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+    return BasicModalSheet(
+        header: Column(
         children: [
-          Container(
-            padding: EdgeInsets.only(
-              bottom: 20
-            ),
-            child: Column(
-              children: [
                 Icon(Icons.pets, size: 48),
                 Container(height: 10),
-                Text(
-                  'The boar being reported is:',
-                  style: TextStyle(fontSize: 20)
-                ),
+            Text('The boar being reported is:', style: TextStyle(fontSize: 20)),
                 Container(height: 10),
               ],
             ),
-          ),
-          Row(
+        content: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ReportSheetButton(
-                icon: Icons.check, 
-                title: 'Alive', 
-                onTap: () => {}
-              ),
+                  icon: Icons.check, title: 'Alive', onTap: () => {}),
               ReportSheetButton(
-                icon: Icons.close, 
-                title: 'Dead', 
-                onTap: () => {}
-              )
+                  icon: Icons.close, title: 'Dead', onTap: () => {})
             ],
-          ),
-        ],
-      ),
+              )
     );
   }
 }
