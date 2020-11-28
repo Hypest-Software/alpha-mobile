@@ -1,3 +1,4 @@
+import 'package:alpha_mobile/ui/basic_modal_sheet.dart';
 import 'package:alpha_mobile/ui/report_sheet_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -25,9 +26,9 @@ class HomeScreen extends StatelessWidget {
           tooltip: 'Report',
           label: Text(
             'REPORT',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
           ),
-          icon: Icon(Icons.report, size: 40),
+          icon: Icon(Icons.report_outlined, size: 40),
           backgroundColor: Colors.red,
         ),
       ),
@@ -38,13 +39,13 @@ class HomeScreen extends StatelessWidget {
   Widget _reportBottomSheet(BuildContext context) {
     return BasicModalSheet(
         header: Column(
-        children: [
-                Icon(Icons.pets, size: 48),
-                Container(height: 10),
+          children: [
+            Icon(Icons.pets, size: 48),
+            Container(height: 10),
             Text('The boar being reported is:', style: TextStyle(fontSize: 20)),
-                Container(height: 10),
-              ],
-            ),
+            Container(height: 10),
+          ],
+        ),
         content: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -54,7 +55,7 @@ class HomeScreen extends StatelessWidget {
               ReportSheetButton(
                   icon: Icons.close, title: 'Dead', onTap: () => {})
             ],
-              )
+          )
     );
   }
 }
