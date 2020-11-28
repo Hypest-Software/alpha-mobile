@@ -1,4 +1,6 @@
+import 'package:alpha_mobile/model/boar_type.dart';
 import 'package:alpha_mobile/ui/basic_modal_sheet.dart';
+import 'package:alpha_mobile/ui/boar_report_screen.dart';
 import 'package:alpha_mobile/ui/modal_sheet_header.dart';
 import 'package:alpha_mobile/ui/report_sheet_button.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +22,7 @@ class HomeScreen extends StatelessWidget {
         widthFactor: 0.8,
         heightFactor: 0.1,
         child: FloatingActionButton.extended(
-          onPressed: () => showMaterialModalBottomSheet(
-            expand: false,
-            context: context,
-            builder: (context) => _reportBottomSheet(context)
-          ),
+          onPressed: () => _handleReportClick(context),
           tooltip: 'Report',
           label: Text(
             'REPORT',
@@ -38,6 +36,29 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  void _handleReportClick(BuildContext context) async {
+    await showMaterialModalBottomSheet(
+            expand: false,
+            context: context,
+            builder: (context) => _reportBottomSheet(context))
+        .then((boarType) async {
+      if (boarType == null) {
+        return;
+      } else if (boarType == BoarType.Alive) {
+        bool result = await showMaterialModalBottomSheet(
+          context: context,
+          builder: (context) => _aliveWarningBottomSheet(context),
+          enableDrag: false,
+        );
+
+        if (result == null) return;
+      }
+
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => BoarReportScreen(boarType: boarType)));
+    });
+  }
+
   Widget _reportBottomSheet(BuildContext context) {
     return BasicModalSheet(
       header: ModalSheetHeader(
@@ -49,11 +70,40 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ReportSheetButton(
-              icon: Icons.check, title: 'Alive', onTap: () => {}),
+            icon: Icons.check,
+            title: 'Alive',
+            onTap: () => Navigator.pop(context, BoarType.Alive),
+          ),
           ReportSheetButton(
-              icon: Icons.close, title: 'Dead', onTap: () => {})
+            icon: Icons.close,
+            title: 'Dead',
+            onTap: () => Navigator.pop(context, BoarType.Dead),
+          ),
         ],
-      )
+      ),
     );
+  }
+
+  Widget _aliveWarningBottomSheet(BuildContext context) {
+    return BasicModalSheet(
+        header:
+            ModalSheetHeader(icon: Icons.warning_rounded, text: 'Stay calm.'),
+        content: Column(
+          children: [
+            Text(
+              'Wild boars don\'t attack unless frightened.\nIf you\'re still close to it, calmly and silently withdraw.',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16),
+            ),
+            Container(height: 15),
+            Text('Make sure you\'re safe before proceeding.',
+                style: TextStyle(fontSize: 16)),
+            Container(height: 25),
+            RaisedButton(
+              child: Text('I am safe, proceed'),
+              onPressed: () => Navigator.of(context).pop(true),
+            )
+          ],
+        ));
   }
 }
