@@ -20,9 +20,10 @@ class HomeScreen extends StatelessWidget {
         heightFactor: 0.1,
         child: FloatingActionButton.extended(
           onPressed: () => showMaterialModalBottomSheet(
-              expand: false,
-              context: context,
-              builder: (context) => _reportBottomSheet(context)),
+            expand: false,
+            context: context,
+            builder: (context) => _reportBottomSheet(context)
+          ),
           tooltip: 'Report',
           label: Text(
             'REPORT',
@@ -38,24 +39,24 @@ class HomeScreen extends StatelessWidget {
 
   Widget _reportBottomSheet(BuildContext context) {
     return BasicModalSheet(
-        header: Column(
-          children: [
-            Icon(Icons.pets, size: 48),
-            Container(height: 10),
-            Text('The boar being reported is:', style: TextStyle(fontSize: 20)),
-            Container(height: 10),
-          ],
-        ),
-        content: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ReportSheetButton(
-                  icon: Icons.check, title: 'Alive', onTap: () => {}),
-              ReportSheetButton(
-                  icon: Icons.close, title: 'Dead', onTap: () => {})
-            ],
-          )
+      header: Column(
+        children: [
+          Icon(Icons.pets, size: 48),
+          Container(height: 10),
+          Text('The boar being reported is:', style: TextStyle(fontSize: 20)),
+          Container(height: 10),
+        ],
+      ),
+      content: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ReportSheetButton(
+              icon: Icons.check, title: 'Alive', onTap: () => {}),
+          ReportSheetButton(
+              icon: Icons.close, title: 'Dead', onTap: () => {})
+        ],
+      )
     );
   }
 }
