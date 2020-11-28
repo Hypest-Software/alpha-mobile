@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
       }
 
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => BoarReportScreen(boarType: boarType)));
+          builder: (context) => BoarReportScreen(chosenBoarType: boarType)));
     });
   }
 
