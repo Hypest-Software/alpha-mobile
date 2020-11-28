@@ -26,9 +26,9 @@ class HomeScreen extends StatelessWidget {
           tooltip: 'Report',
           label: Text(
             'REPORT',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
           ),
-          icon: Icon(Icons.report_outlined, size: 40),
+          icon: Icon(Icons.report_outlined, size: 36),
           backgroundColor: Colors.red,
         ),
       ),
