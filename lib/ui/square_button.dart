@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class ReportSheetButton extends StatelessWidget {
+class SquareButton extends StatelessWidget {
   final IconData icon;
   final String title;
   final VoidCallback onTap;
-  const ReportSheetButton(
+  const SquareButton(
       {Key key,
       @required this.icon,
       @required this.title,

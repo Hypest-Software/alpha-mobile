@@ -2,7 +2,7 @@ import 'package:alpha_mobile/model/boar_type.dart';
 import 'package:alpha_mobile/ui/basic_modal_sheet.dart';
 import 'package:alpha_mobile/ui/boar_report_screen.dart';
 import 'package:alpha_mobile/ui/modal_sheet_header.dart';
-import 'package:alpha_mobile/ui/report_sheet_button.dart';
+import 'package:alpha_mobile/ui/square_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -79,12 +79,12 @@ class HomeScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          ReportSheetButton(
+          SquareButton(
             icon: Icons.check,
             title: 'Alive',
             onTap: () => Navigator.pop(context, BoarType.Alive),
           ),
-          ReportSheetButton(
+          SquareButton(
             icon: Icons.close,
             title: 'Dead',
             onTap: () => Navigator.pop(context, BoarType.Dead),
