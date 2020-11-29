@@ -47,6 +47,7 @@ class _MapViewState extends State<MapView> {
         child: FloatingActionButton(
           onPressed: _changeMapType,
           child: Icon(Icons.layers),
+          heroTag: 3001,
         ),
       ),
     ]);

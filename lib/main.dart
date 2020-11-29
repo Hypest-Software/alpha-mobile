@@ -12,8 +12,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BoarAlert',
       theme: ThemeData(
+        brightness: Brightness.dark,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        buttonTheme: ButtonThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+          ) 
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.blue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+          )
+        )
       ),
       home: HomeScreen(),
     );

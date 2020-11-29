@@ -1,0 +1,4 @@
+enum BoarType {
+  Alive,
+  Dead
+}
