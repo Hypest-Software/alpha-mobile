@@ -58,6 +58,14 @@ class _BoarReportScreenState extends State<BoarReportScreen> {
               centerTitle: true,
               title: Text('Report details'),
             ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.send),
+                onPressed: () {
+                  
+                }
+              )
+            ],
           ),
           SliverList(
             delegate: SliverChildListDelegate([
@@ -71,6 +79,7 @@ class _BoarReportScreenState extends State<BoarReportScreen> {
                       _locationSection(),
                       _boarTypeSection(),
                       _pictureSection(),
+                      _descriptionSection()
                     ],
                   ),
                 ),
@@ -174,6 +183,20 @@ class _BoarReportScreenState extends State<BoarReportScreen> {
                       ),
                     )),
         ),
+      )
+    ]);
+  }
+
+  Widget _descriptionSection() {
+    return _sectionCard([
+      _sectionHeader(context, 'Description'),
+      TextFormField(
+        maxLines: null, // default is 1, this enables multiline
+        decoration: InputDecoration(
+            hintText: 'Describe the encounter...'),
+        onChanged: (value) async {
+          _report.description = value;
+        },
       )
     ]);
   }
